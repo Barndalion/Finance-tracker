@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Getting Started</title>
+    </head>
+    <header>
+        <h1>Welcome to the Barnes Finance Tracker! Answer these few questions to get started</h1>
+    </header>
+    <body>
+        <form action="/getting_started" method="post">
+            <label>Enter your fixed income</label>
+            <input type="number" name="fixed_income" id="fixed_income" required>
+
+            <label>Choose a saving percentage</label>
+            <select id="saving_percentage" name="saving_percentage" required>
+                <option value="0.1">10%</option>
+                <option value="0.2">20%</option>
+                <option value="0.4">40%</option>
+                <option value="0.5">50%</option>
+            </select>
+
+            <label>Choose the frequency of your fixed income</label>
+            <select id="frequency" name="frequency" required>
+                <option value="weekly">Weekly</option>
+                <option value="bi-weekly">Bi-Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+
+            <button type="submit"><a href="{{url_for('index')}}">Finished</a></button>
+        </form>
+        <p>{{message}}</p>
+    </body>
+</html>

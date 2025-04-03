@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+        <title>Users Page</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/stats.css') }}?v=1">
+        <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+
+    </head>
+    <nav>
+        <div class="logo">Finance Tracker</div>
+        <ul class="nav-links">
+            <li><a href="{{url_for('add')}}">Add Record</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+    <header class="fullscreen">
+        <h1>Welcome To The Barnes Finance Tracker {{name}}!!</h1>
+    </header>
+    <body>
+       <div class="halfscreen" id="aimblock">
+            <h2 id="heading">Aim</h2>
+            <p>To develop a comprehensive and user-friendly finance tracking platform that empowers individuals and businesses to take control of their financial health. The platform aims to provide users with the ability to log income and expenses effortlessly, track spending habits, and visualize financial trends through intuitive charts and reports. By offering tools for budget management, savings projections, and goal setting, the finance tracker seeks to promote financial literacy and encourage responsible financial decision-making. Additionally, the platform will prioritize data security and privacy, ensuring users' financial information is protected. Ultimately, the goal is to create a seamless and engaging experience that helps users achieve their financial goals and build a secure financial future.</p>
+       </div>
+
+       <p id="currentstats">Current Stats</p>
+
+       <div id="container" hx-get="/stats" hx-trigger="every 5s" hx-target="#container" hx-swap="innerHTML"></div>
+    </body>
+    <footer>
+        <p>Footer area</p>
+    </footer>
+</html>
