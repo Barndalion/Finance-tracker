@@ -1,37 +1,12 @@
 from flask import Flask, render_template,request,url_for,redirect,make_response
+from apscheduler.schedulers.background import BackgroundScheduler
 from AuthBarn import *
-import json
-import os
-import datetime 
-from config import create_table, connect_db, FIXED_DATA, load_json, save_json,update
+from utils import *
+from config import *
+
 
 instance = Action(_dev_mode=False)
 app = Flask(__name__)
-    
-def get_latest(name):
-    with connect_db() as conn:
-        cursor = conn.cursor()
-
-        cursor.execute(f"""SELECT * FROM {name} ORDER BY timestamp DESC LIMIT 1""")
-        data =  cursor.fetchone()
-
-        return data
-    
-def get_balance(name):
-    with connect_db() as conn:
-        cursor = conn.cursor()
-
-        cursor.execute(f"""SELECT balance FROM {name} ORDER BY timestamp DESC LIMIT 1""")
-        data =  cursor.fetchone()
-
-        return data
-    
-def add_record(name,fixed_income,expense,saving,extra_income):
-    with connect_db() as conn:
-        cursor = conn.cursor()
-        cursor.execute(f"INSERT INTO {name} (fixed_income,expense,savings,extra_income) VALUES (?,?,?,?)",(fixed_income,expense,saving,extra_income))
-        conn.commit()
-    return True
     
 @app.route('/')
 def home():
@@ -79,28 +54,26 @@ def stats():
     decoded = jwt.decode(token,SECRET_KEY,algorithms=['HS256'])
     name = decoded['Username']
 
+    balance = get_balance(name)
     data = get_latest(name)
     
     if not data:  
         return render_template("stats.html", balance=0, savings=0, projected=0)
     
-    return render_template("stats.html", balance = data[1],savings=data[4],projected=0)
+    return render_template("stats.html", balance = balance,savings=data[4],projected=0)
     
 @app.route('/add', methods = ['GET','POST'])
 def add():
-    data = load_json(FIXED_DATA)
     token = request.cookies.get('token')
     decoded = jwt.decode(token,SECRET_KEY,algorithms=['HS256'])
     name = decoded['Username']
     if request.method == "POST":
-        fixed_income = request.form['fixed_income']
-        expense = request.form['expense']
         extra_income = request.form['extra_income']
-
         update(name)
-        saving = data[name]['saving_percentage'] * fixed_income
-        if add_record(name,fixed_income,expense,saving,extra_income):
+        if add_record(name,extra_income):
             return render_template("add.html", message="Successfully Added Record!!")
+        else:   
+            return render_template("add.html", message="Failed to add record")
     return render_template("add.html")
 
 @app.route('/getting_started', methods = ['GET','POST'])
@@ -119,13 +92,18 @@ def getting_started():
         data[name] = {
             'fixed_income': fixed_income,
             'saving_percentage': saving_percentage,
-            'frequency': frequency
+            'saving_amount': int(fixed_income) * float(saving_percentage),
+            'frequency': frequency,
+            'next_payment': datetime.datetime.now() + datetime.timedelta(days=int(frequency)),
         }
-        save_json(FIXED_DATA,data)
-
-        return render_template("getting_started.html", message = "Successfully Added Record")
+        if save_json(FIXED_DATA,data):
+            return redirect(url_for('index'))
+        else:
+            return render_template("getting_started.html", message = "Failed to add record")
     return render_template("getting_started.html", message = "Successfully Added Record")
 
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=timer, trigger="interval", days=1)
 
 if __name__ == "__main__":
     app.run(debug=True)
