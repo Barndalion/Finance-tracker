@@ -31,6 +31,15 @@
        <div id="container" hx-get="/stats" hx-trigger="every 5s" hx-target="#container" hx-swap="innerHTML"></div>
     </body>
     <footer>
-        <p>Footer area</p>
+        <div class="footer-container">
+            <p>&copy; {{ datetime }} Barnes Finance Tracker. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+            </ul>
+            <p>Need help? Contact us at <a href="mailto:support@barnesfinancetracker.com">support@barnesfinancetracker.com</a></p>
+        </div>
     </footer>
 </html>

@@ -10,7 +10,7 @@ app = Flask(__name__)
     
 @app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template("home.html", datetime = datetime.datetime.now().strftime('%Y'))
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
@@ -43,7 +43,7 @@ def index():
     token = request.cookies.get('token')
     decoded = jwt.decode(token,SECRET_KEY,algorithms=['HS256'])
     name = decoded['Username']
-    return render_template("index.html", name = name)
+    return render_template("index.html", name = name, datetime = datetime.datetime.now().strftime('%Y'))
 
 @app.route('/register', methods = ['GET','POST'])
 def register():
@@ -118,7 +118,7 @@ def getting_started():
             return redirect(url_for('index'))
         else:
             return render_template("getting_started.html", message = "Failed to add record")
-    return render_template("getting_started.html", message = "Successfully Added Record")
+    return render_template("getting_started.html")
 
 @app.route('/expense', methods=['POST','GET'])
 def expense():

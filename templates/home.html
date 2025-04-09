@@ -5,10 +5,66 @@
         <link rel="stylesheet" href="{{url_for('static', filename = 'css/homestyle.css')}}">
     </head>
     <header>
-        <a href="{{url_for('login')}}">Login</a>
-        <a href="{{url_for('register')}}">Register</a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="{{url_for('login')}}">Login</a></li>
+                <li><a href="{{url_for('register')}}">Register</a></li>
+            </ul>
+        </nav>
     </header>
     <body>
-        <h1><center>Welcome To My WebPage</center></h1>
+        <section class="hero">
+            <h1>Welcome to Barnes Finance Tracker</h1>
+            <p>Take control of your finances with ease. Track your income, expenses, and savings all in one place.</p>
+            <div class="cta-buttons">
+                <a href="{{url_for('login')}}" class="btn">Login</a>
+                <a href="{{url_for('register')}}" class="btn btn-secondary">Register</a>
+            </div>
+        </section>
+
+        <section class="features">
+            <h2>Why Choose Barnes Finance Tracker?</h2>
+            <div class="feature-list">
+                <div class="feature">
+                    <h3>Track Your Expenses</h3>
+                    <p>Easily log and categorize your expenses to see where your money is going.</p>
+                </div>
+                <div class="feature">
+                    <h3>Set Financial Goals</h3>
+                    <p>Define your savings goals and monitor your progress over time.</p>
+                </div>
+                <div class="feature">
+                    <h3>Generate Reports</h3>
+                    <p>Get detailed reports on your spending habits and financial health.</p>
+                </div>
+                <div class="feature">
+                    <h3>Secure and Private</h3>
+                    <p>Your data is encrypted and stored securely, ensuring your privacy.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial-list">
+                <div class="testimonial">
+                    <p>"Barnes Finance Tracker has completely changed the way I manage my money. Highly recommended!"</p>
+                    <span>- Alex J.</span>
+                </div>
+                <div class="testimonial">
+                    <p>"I love how easy it is to track my expenses and set savings goals. The reports are super helpful!"</p>
+                    <span>- Maria K.</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; {{ datetime }} Barnes Finance Tracker. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </footer>
     </body>
 </html>
