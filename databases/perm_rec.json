@@ -1,1 +1,9 @@
-{}
+{
+    "test": {
+        "fixed_income": "60000",
+        "saving_percentage": "0.1",
+        "saving_amount": 6000.0,
+        "frequency": 7,
+        "next_payment": "2025-04-15"
+    }
+}

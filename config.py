@@ -7,6 +7,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASES_DIR = os.path.join(BASE_DIR, "databases")
 os.makedirs(DATABASES_DIR, exist_ok=True)
 DATABASE_FILE = os.path.join(DATABASES_DIR,"data.db")
+EXPENSE_FILE = os.path.join(DATABASES_DIR,"Expenses.db")
 FIXED_DATA = os.path.join(DATABASES_DIR, "perm_rec.json")
 
 def create_table(username):
@@ -17,16 +18,14 @@ def create_table(username):
                 timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
                 fixed_income REAL DEFAULT 0,
                 extra_income REAL DEFAULT 0,
-                expense REAL DEFAULT 0,
                 savings REAL DEFAULT 0,
-                total_expenses REAL DEFAULT 0,
                 total_income REAL DEFAULT 0
             )
         """)
         conn.commit()
 
-def connect_db():
-    return sqlite3.connect(DATABASE_FILE)
+def connect_db(file=DATABASE_FILE):
+    return sqlite3.connect(file)
 
 def load_json(filepath):
     if not os.path.exists(filepath):

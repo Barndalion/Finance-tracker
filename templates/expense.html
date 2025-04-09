@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Expenses</title>
+    </head>
+    <header>
+
+    </header>
+    <body>
+        <form action="/expense" method="post">
+            <label>enter latest item</label>
+            <input type="text" name="item" id="item" required>
+
+            <label>Enter Latest Expense</label>
+            <input type="number" name="expense" id="expense" required>
+            
+            <button type="submit">Submit</button>
+        </form>
+        <div>
+            <h1>All Expenses So Far</h1>
+            {% if item %}
+                <ul>
+                    {% for items in item %}
+                        <li>Created: {{items[0]}} Name: {{items[1]}}   Price: {{items[2]}}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>no expenses.......</p>
+            {%endif%}
+        </div>
+    </body>
+</html>
