@@ -8,20 +8,31 @@ def get_balance(name):
 
         cursor.execute(f"""SELECT total_income FROM {name}""")
         total_income =  cursor.fetchone()
-    
+
     with connect_db(EXPENSE_FILE) as conn:
         cursor = conn.cursor()
-
-        cursor.execute(f"""SELECT total_expenses FROM {name}""")
-        total_expenses =  cursor.fetchone()
+        cursor.execute(f"""SELECT total_expenses FROM "{name}" """)
+        total_expenses = cursor.fetchone()
 
     if total_income is None:
         total_income = "0"
     if total_expenses is None:
         total_expenses = "0"
-        
-    balance = int(total_income[0]) - int(total_expenses[0])
+
+    savings = get_savings(name)
+
+    balance = int(total_income[0]) - (int(total_expenses[0]) + int(savings))
     return balance
+
+def get_savings(name):
+    
+    with connect_db() as conn:
+        cursor = conn.cursor()
+
+        cursor.execute(f"""SELECT savings FROM {name}""")
+        savings =  cursor.fetchone()
+
+        return savings[0] if savings is not None else 0
 
 def update_total_expense(name):
         with connect_db(EXPENSE_FILE) as conn:
@@ -50,14 +61,13 @@ def store_extra_income(name,data):
         cursor = conn.cursor()
         cursor.execute(f"""INSERT INTO "{name}" (extra_income) VALUES (?)""", (data,))
         conn.commit()
-
      
 def timer():
      data = load_json(FIXED_DATA)
      for user in data:
         if data[user]['next_payment'] > datetime.datetime.now().strftime('%Y-%m-%d'):
             data[user]['next_payment'] = datetime.datetime.now() + datetime.timedelta(days=user['frequency'])
-            savings(user, data[user]['saving_amount'])
+            add_savings(user, data[user]['saving_amount'])
             with connect_db() as conn:
                 cursor = conn.cursor()
                 cursor.execute(f"""INSERT INTO "{user}" (fixed_income) VALUES = ?""", (data[user]['fixed_income'],))
@@ -74,7 +84,7 @@ def get_latest(name):
 
         return data
 
-def savings(name,add):
+def add_savings(name,add):
     with connect_db() as conn:
         cursor = conn.cursor()
 
@@ -105,7 +115,8 @@ def get_expenses(name):
 
         cursor.execute(f"""SELECT * FROM "{name}" """)
         expenses = cursor.fetchall()
-
+        if expenses is None:
+            return 0
         return expenses
     
 def get_total_expenses(name):
@@ -118,6 +129,17 @@ def get_total_expenses(name):
         if expenses is None:
             return 0
         return expenses[0] 
+
+def get_total_income(name):
+    with connect_db() as conn:
+        cursor = conn.cursor()
+
+        cursor.execute(f"""SELECT total_income FROM "{name}" """)
+        income = cursor.fetchone()
+        
+        if income is None:
+            return 0
+        return income[0]
     
 def expense_database_tables(name):
     with connect_db(file=EXPENSE_FILE) as conn:
@@ -131,4 +153,5 @@ def expense_database_tables(name):
                 total_expenses REAL DEFAULT 0
             )
         """)
-print(get_latest('test'))
+print(get_total_expenses("mommy"))
+print(get_total_income("mommy"))
