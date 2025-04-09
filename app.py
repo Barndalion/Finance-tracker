@@ -65,13 +65,11 @@ def stats():
     name = decoded['Username']
 
     balance = get_balance(name)
-    data = get_latest(name)
+    data = get_savings(name)
     total_expense = get_total_expenses(name)
+    total_income = get_total_income(name)
     
-    if not data:  
-        return render_template("stats.html", balance=0, savings=0, projected=0)
-    
-    return render_template("stats.html", balance = balance,savings=data[3],total_expenses=total_expense,total_income=data[4])
+    return render_template("stats.html", balance = balance,savings=data,total_expenses=total_expense,total_income=total_income)
     
 @app.route('/add', methods = ['GET','POST'])
 def add():
@@ -86,7 +84,7 @@ def add():
 
         saving_value = round(float(percent) * int(extra_income),0)
         store_extra_income(name,extra_income)
-        savings(name,saving_value)
+        add_savings(name,saving_value)
         if update_total_income(name):
             return render_template("add.html", message="Successfully Added Record!!")
         else:
