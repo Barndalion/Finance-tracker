@@ -4,11 +4,19 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Expenses</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/expense.css') }}">
     </head>
-    <header>
-
-    </header>
+    <nav>
+        <div class="logo">Finance Tracker</div>
+        <ul class="nav-links">
+            <li><a href="{{url_for('index')}}">⟵</a></li>
+            <li><a href="{{url_for('add')}}">Add record</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
     <body>
+        <a href="{{url_for('index')}}">↤</a>
         <form action="/expense" method="post">
             <label>enter latest item</label>
             <input type="text" name="item" id="item" required>
@@ -21,14 +29,23 @@
         <div>
             <h1>All Expenses So Far</h1>
             {% if item %}
-                <ul>
+                <table border="1" cellpadding="10" cellspacing="0">
+                    <tr>
+                        <th>Created</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                    </tr>
                     {% for items in item %}
-                        <li>Created: {{items[0]}} Name: {{items[1]}}   Price: {{items[2]}}</li>
+                    <tr>
+                        <td> {{items[0]}}</td>
+                        <td> {{items[1]}}</td>
+                        <td> {{items[2]}}</td>
+                    </tr>
                     {% endfor %}
-                </ul>
-            {% else %}
-                <p>no expenses.......</p>
-            {%endif%}
+                </table>
+                {% else %}
+                    <p>no expenses.......</p>
+                {%endif%}
         </div>
     </body>
 </html>

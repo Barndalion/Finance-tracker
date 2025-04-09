@@ -1,0 +1,104 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Light background */
+    color: #333; /* Dark text for readability */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    background: linear-gradient(90deg, #0057D9, #00D4FF); /* Gradient background */
+    color: white;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Form Container */
+form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    max-width: 400px;
+    width: 90%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Form Labels */
+form label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #0057D9; /* Blue text for labels */
+    font-weight: bold;
+}
+
+/* Input Fields */
+form input[type="number"],
+form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="number"]:focus,
+form select:focus {
+    border-color: #0057D9; /* Blue border on focus */
+    outline: none;
+}
+
+/* Submit Button */
+form button {
+    background-color: #0057D9;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #003f9a; /* Darker blue on hover */
+}
+
+/* Message Styles */
+p {
+    font-size: 16px;
+    color: #28a745; /* Green for success messages */
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        font-size: 20px;
+        padding: 15px;
+    }
+
+    form {
+        width: 95%;
+    }
+}

@@ -1,23 +1,9 @@
 {
     "test": {
-        "fixed_income": "60000",
+        "fixed_income": "10",
         "saving_percentage": "0.1",
-        "saving_amount": 6000.0,
+        "saving_amount": 1.0,
         "frequency": 7,
-        "next_payment": "2025-04-15"
-    },
-    "lionel": {
-        "fixed_income": "60000",
-        "saving_percentage": "0.4",
-        "saving_amount": 24000.0,
-        "frequency": 14,
-        "next_payment": "2025-04-22"
-    },
-    "mommy": {
-        "fixed_income": "30000",
-        "saving_percentage": "0.1",
-        "saving_amount": 3000.0,
-        "frequency": 7,
-        "next_payment": "2025-04-15"
+        "next_payment": "2025-04-16"
     }
 }

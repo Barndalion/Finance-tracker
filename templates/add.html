@@ -1,5 +1,20 @@
 <!DOCTYPE html>
 <html lang="eng">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Income</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/add.css') }}">
+    </head>
+    <nav>
+        <div class="logo">Finance Tracker</div>
+        <ul class="nav-links">
+            <li><a href="{{url_for('index')}}">⟵</a></li>
+            <li><a href="{{url_for('expense')}}">Expenses</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
     <body>
         <form action="/add" method="post">
             <label>Enter Additional Income made Today</label>

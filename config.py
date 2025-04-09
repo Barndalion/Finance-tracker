@@ -1,7 +1,6 @@
 import sqlite3
 import os
 import json
-import datetime
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATABASES_DIR = os.path.join(BASE_DIR, "databases")
@@ -39,4 +38,3 @@ def save_json(filepath,data):
         with open(filepath, 'w') as f:
             json.dump(data,f, indent=4)
             return True
-

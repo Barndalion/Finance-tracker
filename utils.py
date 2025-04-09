@@ -1,5 +1,4 @@
 from config import *
-import json
 import datetime
 
 def get_balance(name):
@@ -153,5 +152,3 @@ def expense_database_tables(name):
                 total_expenses REAL DEFAULT 0
             )
         """)
-print(get_total_expenses("mommy"))
-print(get_total_income("mommy"))
